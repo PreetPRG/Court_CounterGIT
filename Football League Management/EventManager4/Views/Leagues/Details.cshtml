@@ -1,0 +1,27 @@
+﻿@model EventManager4.Models.League
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>League</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LeagueName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeagueName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LeagueId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

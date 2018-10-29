@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EventManager4.Models.Match>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Matches List</h2>
+
+<p>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.League.LeagueName)
+        </th>
+        <th>
+            <!--Html.DisplayNameFor(model => model.Team.TeamName)-->
+            Team_1_Name
+        </th>
+        <th>
+           <!-- Html.DisplayNameFor(model => model.Team1.TeamName)-->
+            Team_2_Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.League.LeagueName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team.TeamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team1.TeamName)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Details", "Details", new { id=item.MatchId }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

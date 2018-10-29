@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventManagementEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="League">
+    <Key>
+      <PropertyRef Name="LeagueId" />
+    </Key>
+    <Property Name="LeagueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeagueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Matches" Relationship="Self.FK_Match_ToLeague" FromRole="League" ToRole="Match" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Team_ToLeague" FromRole="League" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="Match">
+    <Key>
+      <PropertyRef Name="MatchId" />
+    </Key>
+    <Property Name="MatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeagueId" Type="Int32" Nullable="false" />
+    <Property Name="Team1Id" Type="Int32" Nullable="false" />
+    <Property Name="Team2Id" Type="Int32" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="League" Relationship="Self.FK_Match_ToLeague" FromRole="Match" ToRole="League" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_Match_ToTeam" FromRole="Match" ToRole="Team" />
+    <NavigationProperty Name="Team1" Relationship="Self.FK_Match_ToTeam1" FromRole="Match" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NewsId" />
+    </Key>
+    <Property Name="NewsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HeadLine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeagueId" Type="Int32" Nullable="false" />
+    <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Played" Type="Int32" Nullable="false" />
+    <Property Name="Won" Type="Int32" Nullable="false" />
+    <Property Name="Lost" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="League" Relationship="Self.FK_Team_ToLeague" FromRole="Team" ToRole="League" />
+    <NavigationProperty Name="Matches" Relationship="Self.FK_Match_ToTeam" FromRole="Team" ToRole="Match" />
+    <NavigationProperty Name="Matches1" Relationship="Self.FK_Match_ToTeam1" FromRole="Team" ToRole="Match" />
+  </EntityType>
+  <Association Name="FK_Match_ToLeague">
+    <End Role="League" Type="Self.League" Multiplicity="1" />
+    <End Role="Match" Type="Self.Match" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="League">
+        <PropertyRef Name="LeagueId" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="LeagueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_ToLeague">
+    <End Role="League" Type="Self.League" Multiplicity="1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="League">
+        <PropertyRef Name="LeagueId" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="LeagueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Match_ToTeam">
+    <End Role="Team" Type="Self.Team" Multiplicity="1" />
+    <End Role="Match" Type="Self.Match" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="Team1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Match_ToTeam1">
+    <End Role="Team" Type="Self.Team" Multiplicity="1" />
+    <End Role="Match" Type="Self.Match" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="Team2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventManagementEntitiesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Leagues" EntityType="Self.League" />
+    <EntitySet Name="Matches" EntityType="Self.Match" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <AssociationSet Name="FK_Match_ToLeague" Association="Self.FK_Match_ToLeague">
+      <End Role="League" EntitySet="Leagues" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_ToLeague" Association="Self.FK_Team_ToLeague">
+      <End Role="League" EntitySet="Leagues" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Match_ToTeam" Association="Self.FK_Match_ToTeam">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Match_ToTeam1" Association="Self.FK_Match_ToTeam1">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

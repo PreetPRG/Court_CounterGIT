@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EventManager4.Models.Team>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Teams List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Played)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Won)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.League.LeagueName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Played)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Won)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.League.LeagueName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TeamId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TeamId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TeamId })
+        </td>
+    </tr>
+}
+
+</table>
