@@ -59,5 +59,12 @@ public class Main2Activity extends AppCompatActivity {
         TextView Total_B=(TextView)findViewById(R.id.team_b_score);
         Total_B.setText("" + total_B);
     }
+    public void end_game(View view)
+    {
+        Intent intent=new Intent(Main2Activity.this,Main3Activity.class);
+        intent.putExtra("ScoreA",total_A);
+        intent.putExtra("ScoreB",total_B);
+        startActivity(intent);
+    }
 
 }

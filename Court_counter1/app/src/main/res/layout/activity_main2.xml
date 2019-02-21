@@ -115,6 +115,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="111dp"
         android:text="End Game"
+        android:onClick="end_game"
         />
 
 
